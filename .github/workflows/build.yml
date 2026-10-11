@@ -34,7 +34,13 @@ jobs:
       uses: gradle/actions/setup-gradle@v4
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      # 注意：v3 的默认 packages 是 'tools platform-tools'，其中 tools 包
+      # 已从 Android SDK 仓库下线，会导致 sdkmanager 以 exit 1 退出而整个 job
+      # 在 12 秒左右失败（"Failed to find package 'tools'"）。v4 默认已改为
+      # 'platform-tools'，这里再显式指定一次更保险。
+      uses: android-actions/setup-android@v4
+      with:
+        packages: 'platform-tools'
 
     - name: Accept Android SDK licenses and install packages
       run: |
