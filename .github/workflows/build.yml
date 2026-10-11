@@ -70,11 +70,15 @@ jobs:
           --ks release.keystore \
           --ks-pass pass:"${{ secrets.KEYSTORE_PASSWORD }}" \
           --key-pass pass:"${{ secrets.KEYSTORE_PASSWORD }}" \
-          --ks-key-alias douyintv \
+          --ks-key-alias "${{ secrets.KEY_ALIAS || 'douyintv' }}" \
           app/build/outputs/apk/release/app-release-aligned.apk
 
         cp app/build/outputs/apk/release/app-release-aligned.apk \
            app/build/outputs/apk/release/DouyinTV.apk
+
+        # 在日志里打印签名校验结果，便于确认产物确实已签名
+        "$BT/apksigner" verify --print-certs \
+          app/build/outputs/apk/release/DouyinTV.apk
 
     - name: Upload build reports (only on failure)
       if: failure()
