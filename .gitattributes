@@ -1,0 +1,10 @@
+# 保证 shell 脚本在 Linux 上是 LF，避免 CI 报 "/usr/bin/env: 'sh\r': No such file or directory"
+gradlew text eol=lf
+*.sh    text eol=lf
+gradlew.bat text eol=crlf
+
+# 二进制文件不要做换行转换
+*.jar  binary
+*.png  binary
+*.jks  binary
+*.keystore binary

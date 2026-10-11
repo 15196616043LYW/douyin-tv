@@ -13,8 +13,8 @@
 # Gradle
 .gradle/
 local.properties
-gradle/wrapper/gradle-wrapper.jar
-!gradle/wrapper/gradle-wrapper.properties
+# 注意：gradle/wrapper/gradle-wrapper.jar 必须提交到仓库，
+# 否则 CI 里的 ./gradlew 无法运行（GradleWrapperMain 找不到）。
 
 # IDE
 .idea/
